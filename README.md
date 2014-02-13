@@ -15,7 +15,7 @@ Table of Contents
 Overview
 ----
 
-Daenerys is a trading algorithm written in C# using the [TradingMotion SDK] development tools (there is a [VB.net] port too).
+Daenerys is a trading algorithm written in VB.Net using the [TradingMotion SDK] development tools (there is a [C# port] too).
 
 ![OHLC example chart](markdown_files/OHLC.png)
 <sub>__Image footnote:__ Example of Daenerys OHLC financial chart showing some automatic trades</sub>
@@ -53,52 +53,55 @@ DaenerysStrategy rules:
 
 Here is a simplified C# source code of Daenerys' _OnNewBar()_ function. The complete code is all contained in [DaenerysStrategy.cs] along with comments and definition of parameters.
 
-```csharp
-decimal stopMargin = (int)this.GetInputParameter("Catastrophic Stop Loss ticks distance") * this.GetMainChart().Symbol.TickSize;
+```VB.net
+Dim stopMargin As Decimal = Me.GetInputParameter("Catastrophic Stop Loss ticks distance") * Me.GetMainChart().Symbol.TickSize
 
-int buySignal = (int)this.GetInputParameter("RSI Buy signal trigger level");
-int sellSignal = (int)this.GetInputParameter("RSI Sell signal trigger level");
+Dim buySignal As Integer = Me.GetInputParameter("RSI Buy signal trigger level")
+Dim sellSignal As Integer = Me.GetInputParameter("RSI Sell signal trigger level")
 
-if (rsiIndicator.GetRSI()[1] <= buySignal && rsiIndicator.GetRSI()[0] > buySignal && this.GetOpenPosition() != 1)
-{
-    if (this.GetOpenPosition() == 0)
-    {
-        //BUY SIGNAL: Entering long and placing a catastrophic stop loss
-        MarketOrder buyOrder = new MarketOrder(OrderSide.Buy, 1, "Enter long position");
-        catastrophicStop = new StopOrder(OrderSide.Sell, 1, this.Bars.Close[0] - stopMargin, "Catastrophic stop long exit");
+If rsiIndicator.GetRSI()(1) <= buySignal And rsiIndicator.GetRSI()(0) > buySignal And Me.GetOpenPosition() <> 1 Then
 
-        this.InsertOrder(buyOrder);
-        this.InsertOrder(catastrophicStop);
-    }
-    else if (this.GetOpenPosition() == -1)
-    {
-        //BUY SIGNAL: Closing short position and cancelling the catastrophic stop loss order
-        MarketOrder exitShortOrder = new MarketOrder(OrderSide.Buy, 1, "Exit short position (reversal exit signal)");
+    If Me.GetOpenPosition() = 0 Then
 
-        this.InsertOrder(exitShortOrder);
-        this.CancelOrder(catastrophicStop);
-    }
-}
-else if (rsiIndicator.GetRSI()[1] >= sellSignal && rsiIndicator.GetRSI()[0] < sellSignal && this.GetOpenPosition() != -1)
-{
-    if (this.GetOpenPosition() == 0)
-    {
-        //SELL SIGNAL: Entering short and placing a catastrophic stop loss
-        MarketOrder sellOrder = new MarketOrder(OrderSide.Sell, 1, "Enter short position");
-        catastrophicStop = new StopOrder(OrderSide.Buy, 1, this.Bars.Close[0] + stopMargin, "Catastrophic stop short exit");
+        ' BUY SIGNAL: Entering long and placing a catastrophic stop loss
+        Dim buyOrder As MarketOrder = New MarketOrder(OrderSide.Buy, 1, "Enter long position")
+        catastrophicStop = New StopOrder(OrderSide.Sell, 1, Me.Bars.Close(0) - stopMargin, "Catastrophic stop long exit")
 
-        this.InsertOrder(sellOrder);
-        this.InsertOrder(catastrophicStop);
-    }
-    else if (this.GetOpenPosition() == 1)
-    {
-        //SELL SIGNAL: Closing long position and cancelling the catastrophic stop loss order
-        MarketOrder exitLongOrder = new MarketOrder(OrderSide.Sell, 1, "Exit long position (reversal exit signal)");
+        Me.InsertOrder(buyOrder)
+        Me.InsertOrder(catastrophicStop)
 
-        this.InsertOrder(exitLongOrder);
-        this.CancelOrder(catastrophicStop);
-    }
-}
+    ElseIf Me.GetOpenPosition() = -1 Then
+
+        ' BUY SIGNAL: Closing short position and cancelling the catastrophic stop loss order
+        Dim exitShortOrder As MarketOrder = New MarketOrder(OrderSide.Buy, 1, "Exit short position (reversal exit signal)")
+
+        Me.InsertOrder(exitShortOrder)
+        Me.CancelOrder(catastrophicStop)
+
+    End If
+
+ElseIf rsiIndicator.GetRSI()(1) >= sellSignal And rsiIndicator.GetRSI()(0) < sellSignal And Me.GetOpenPosition() <> -1 Then
+
+    If Me.GetOpenPosition() = 0 Then
+
+        ' SELL SIGNAL: Entering short and placing a catastrophic stop loss
+        Dim sellOrder As MarketOrder = New MarketOrder(OrderSide.Sell, 1, "Enter short position")
+        catastrophicStop = New StopOrder(OrderSide.Buy, 1, Me.Bars.Close(0) + stopMargin, "Catastrophic stop short exit")
+
+        Me.InsertOrder(sellOrder)
+        Me.InsertOrder(catastrophicStop)
+
+    ElseIf Me.GetOpenPosition() = -1 Then
+
+        ' SELL SIGNAL: Closing long position and cancelling the catastrophic stop loss order
+        Dim exitLongOrder As MarketOrder = New MarketOrder(OrderSide.Sell, 1, "Exit long position (reversal exit signal)")
+
+        Me.InsertOrder(exitLongOrder)
+        Me.CancelOrder(catastrophicStop)
+
+    End If
+
+End If
 ```
 
 Download
@@ -149,7 +152,7 @@ Disclaimer
 
 I am R&D engineer at [TradingMotion LLC], and head of [TradingMotion SDK] platform. Beware, the info here can be a little biased ;)
 
-  [VB.net port]: https://github.com/victormartingarcia/daenerys-trading-strategy-vbnet
+  [C# port]: https://github.com/victormartingarcia/daenerys-trading-strategy-csharp
   [TradingMotion SDK]: http://sdk.tradingmotion.com
   [DaenerysStrategy.cs]: DaenerysStrategy/DaenerysStrategy.cs
   [iSystems platform]: https://www.isystems.com
