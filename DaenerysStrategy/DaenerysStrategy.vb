@@ -1,11 +1,11 @@
-﻿Imports System
+Imports System
 Imports System.Collections.Generic
-Imports TradingMotion.SDK.Algorithms
-Imports TradingMotion.SDK.Algorithms.InputParameters
-Imports TradingMotion.SDK.Markets.Charts
-Imports TradingMotion.SDK.Markets.Orders
-Imports TradingMotion.SDK.Markets.Indicators.Momentum
-Imports TradingMotion.SDK.Markets.Indicators.StatisticFunctions
+Imports TradingMotion.SDKv2.Algorithms
+Imports TradingMotion.SDKv2.Algorithms.InputParameters
+Imports TradingMotion.SDKv2.Markets.Charts
+Imports TradingMotion.SDKv2.Markets.Orders
+Imports TradingMotion.SDKv2.Markets.Indicators.Momentum
+Imports TradingMotion.SDKv2.Markets.Indicators.StatisticFunctions
 
 Namespace DaenerysStrategy
 
@@ -103,7 +103,7 @@ Namespace DaenerysStrategy
         ''' </summary>
         Public Overrides Sub OnNewBar()
 
-            Dim stopMargin As Decimal = Me.GetInputParameter("Catastrophic Stop Loss ticks distance") * Me.GetMainChart().Symbol.TickSize
+            Dim stopMargin As Double = Me.GetInputParameter("Catastrophic Stop Loss ticks distance") * Me.GetMainChart().Symbol.TickSize
 
             Dim buySignal As Integer = Me.GetInputParameter("RSI Buy signal trigger level")
             Dim sellSignal As Integer = Me.GetInputParameter("RSI Sell signal trigger level")

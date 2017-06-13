@@ -54,7 +54,7 @@ DaenerysStrategy rules:
 Here is a simplified C# source code of Daenerys' _OnNewBar()_ function. The complete code is all contained in [DaenerysStrategy.cs] along with comments and definition of parameters.
 
 ```VB.net
-Dim stopMargin As Decimal = Me.GetInputParameter("Catastrophic Stop Loss ticks distance") * Me.GetMainChart().Symbol.TickSize
+Dim stopMargin As Double = Me.GetInputParameter("Catastrophic Stop Loss ticks distance") * Me.GetMainChart().Symbol.TickSize
 
 Dim buySignal As Integer = Me.GetInputParameter("RSI Buy signal trigger level")
 Dim sellSignal As Integer = Me.GetInputParameter("RSI Sell signal trigger level")
