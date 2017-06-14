@@ -154,7 +154,7 @@ I am R&D engineer at [TradingMotion LLC], and head of [TradingMotion SDK] platfo
 
  [C# port]: https://github.com/victormartingarcia/daenerys-trading-strategy-csharp
  [TradingMotion SDK]: https://sdk.tradingmotion.com
- [DaenerysStrategy.cs]: DaenerysStrategy/DaenerysStrategy.cs
+ [DaenerysStrategy.vb]: DaenerysStrategy/DaenerysStrategy.vb
  [iSystems platform]: https://www.isystems.com
  [iSystems.com]: https://www.isystems.com
  [iSystems]: https://www.isystems.com
